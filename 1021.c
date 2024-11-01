@@ -1,40 +1,33 @@
-/* Problema 1021 do beecrowd */
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include<stdio.h>
-#define NO_OF_BILLS 6
-#define NO_OF_COINS 6
+int main() {
+  char *value = malloc(10 * sizeof(char));
+  unsigned whole, fraction, current;
+  const unsigned notes[] = {100, 50, 20, 10, 5, 2};
+  const unsigned coins[] = {100, 50, 25, 10, 5, 1};
 
-int main()
-{
-    int contCedulas[NO_OF_BILLS] = {0}, contMoedas[NO_OF_COINS] = {0}, indice;
-    
-    double cedulas[] = {100.00f, 50.00f, 20.00f, 10.00f, 5.00f, 2.00f},
-    moedas[] = {1.00f, 0.50f, 0.25f, 0.10f, 0.05f, 0.01f}, valor;
-	
-    scanf("%lf", &valor);
+  scanf("%s", value);
 
-    for (indice = 0; indice < NO_OF_BILLS; indice++)
-    {
-        while (cedulas[indice] <= valor)
-        {
-            valor -= cedulas[indice];
-            contCedulas[indice]++;
-        }
-    }
+  whole = atoi(strtok(value, "."));
+  fraction = atoi(strtok(NULL, "."));
 
-    for (indice = 0; indice < NO_OF_COINS; indice++)
-    {
-        while (moedas[indice] <= valor)
-        {
-            valor -= moedas[indice];
-            contMoedas[indice]++;
-        }
-    }
+  current = whole;
 
-    printf("NOTAS:\n");
-    for(indice = 0; indice < NO_OF_BILLS; indice++)
-        printf("%d nota(s) de R$ %.2f\n", contCedulas[indice], cedulas[indice]);
-    printf("MOEDAS:\n");
-    for (indice = 0; indice < NO_OF_COINS; indice++)
-        printf("%d moeda(s) de R$ %.2f\n", contMoedas[indice], moedas[indice]);
+  printf("NOTAS:\n");
+  for (int i = 0; i < 6; i++) {
+    printf("%d nota(s) de R$ %d.00\n", current / notes[i], notes[i]);
+    current %= notes[i];
+  }
+
+  fraction += current * 100;
+  printf("MOEDAS:\n");
+  for (int j = 0; j < 6; j++) {
+    printf("%d moeda(s) de R$ %.2f\n", fraction / coins[j], (float) (coins[j] / 100.00));
+    fraction %= coins[j];
+  }
+  free(value);
+  return 0;
 }
