@@ -1,3 +1,5 @@
+// author: Aldemir Silva | date: November 3rd 2024
+
 #include <stdio.h>
 #include <string.h>
 
@@ -30,7 +32,7 @@ int main() {
     inverteLinha(linha, tam);
 
     for (int k = tam / 2; k < tam; k++)
-      if (32 <= linha[k] <= 176)
+      if (32 <= linha[k] <= 126)
         linha[k] -= 1;
 
     printf("%s\n", linha);
