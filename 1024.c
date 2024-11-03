@@ -1,32 +1,40 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 
 void inverteLinha(char s[], int n) {
-    int i=0, j=n-i-1;
-    char *temp;
+  int i = 0, j = n - i - 1;
+  if (s) {
     while (i < j) {
-        temp = s[j];
-        s[j] = s[i];
-        s[i] = temp;
+      char temp = s[j];
+      s[j] = s[i];
+      s[i] = temp;
+      i++;
+      j--;
     }
+  }
 }
 
-int main(void)
-{
-    int i, linhas;
-    scanf("%d", &linhas);
-    char *texto = calloc(sizeof(char), 1000*linhas);
+int main() {
+  static char linha[1001];
+  int n;
+  scanf("%d", &n);
+  for (int i = 0; i < n; i++) {
+    scanf("%*c%[^\n]", linha);
+    int tam = strlen(linha);
 
-    for (i = 0; i < linhas*1000; i+=1000)
-        scanf("%[^\n]%*c", &texto[i]);
-
-    for (i = 0; texto[i] != '\0'; i++) {
-        if (texto[i] >= 65 && texto[i] <= 122) {
-            texto[i] += 3;
-        }
+    for (int j = 0; j < tam; j++) {
+      if ((65 <= linha[j] && linha[j] <= 90) || (97 <= linha[j] && linha[j] <= 122))
+        linha[j] += 3;
     }
 
-    for (i = 0; i < linhas*1000; i+=1000) {
-        
-    }
+    inverteLinha(linha, tam);
+
+    for (int k = tam / 2; k < tam; k++)
+      if (32 <= linha[k] <= 176)
+        linha[k] -= 1;
+
+    printf("%s\n", linha);
+    memset(linha, 0, tam);
+  }
+  return 0;
 }
