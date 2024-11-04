@@ -1,3 +1,5 @@
+// author: Aldemir Silva | date November 4th 2024
+
 #include <stdio.h>
 
 int main() {
